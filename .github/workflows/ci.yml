@@ -40,3 +40,38 @@ jobs:
           name: spotbugs-report
           path: target/spotbugsXml.xml
           retention-days: 7
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app.jar
+          path: target/java-cicd-demo-1.0-SNAPSHOT.jar
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+      - name: Download JAR artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app.jar
+          path: .
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          password: ${{ secrets.DEPLOY_PASSWORD }}
+          port: 22
+          script: |
+            cd ${{ secrets.DEPLOY_PATH }}
+            # 停止旧服务
+            pkill -f java-cicd-demo || true
+            # 复制新jar
+            cp app.jar java-cicd-demo-1.0-SNAPSHOT.jar
+            # 启动服务
+            nohup java -jar java-cicd-demo-1.0-SNAPSHOT.jar > app.log 2>&1 &
+            echo "Deployment completed at $(date)"
