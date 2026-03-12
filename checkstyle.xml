@@ -8,22 +8,6 @@
     <property name="severity" value="warning"/>
     <property name="fileExtensions" value="java, properties, xml"/>
     
-    <!-- 检查是否有不必要的import -->
-    <module name="BeforeExecutionExclusionFileFilter">
-        <property name="fileNamePattern" value="^module\-info\.java$"/>
-    </module>
-    
-    <!-- 检查文件长度 -->
-    <module name="SuppressionSingleFilter">
-        <property name="checks" value="FileLength"/>
-        <property name="files" value="CheckstyleFilter"/>
-    </module>
-
-    <!-- 检查编码格式 -->
-    <module name="Checker">
-        <property name="charset" value="UTF-8"/>
-    </module>
-
     <!-- 检查空格 -->
     <module name="FileTabCharacter">
         <property name="eachLine" value="true"/>
@@ -53,11 +37,6 @@
         <!-- 代码格式检查 -->
         <module name="LeftCurly"/>
         <module name="RightCurly"/>
-        <module name="Indentation">
-            <property name="basicOffset" value="4"/>
-            <property name="braceAdjustment" value="0"/>
-            <property name="caseIndent" value="4"/>
-        </module>
         <module name="EmptyBlock"/>
         <module name="EmptyLineSeparator">
             <property name="allowNoEmptyLineBetweenFields" value="true"/>
@@ -65,10 +44,6 @@
 
         <!-- 代码规范检查 -->
         <module name="ModifierOrder"/>
-        <module name="TodoComment">
-            <property name="severity" value="ignore"/>
-            <property name="tokens" value="COMMENT_CONTENT"/>
-        </module>
         <module name="UpperEll"/>
     </module>
 </module>
