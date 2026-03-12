@@ -6,7 +6,8 @@ package com.example;
 public class App {
 
     public static void main(String[] args) {
-        System.out.println("Hello CI/CD V2!");
+        System.out.println("Hello CI/CD V4!");
+        System.out.println("测试ci/cd!");
         System.out.println("Version: 1.0-SNAPSHOT");
     }
 
